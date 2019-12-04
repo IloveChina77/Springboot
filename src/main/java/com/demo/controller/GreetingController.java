@@ -11,6 +11,7 @@ import org.springframework.web.util.HtmlUtils;
 public class GreetingController {
 
     @MessageMapping("/hello") //使用MessageMapping注解来标识所有发送到“/hello”这个destination的消息，都会被路由到这个方法进行处理.
+    // 用来返回结果给指定地址的用户
     @SendTo("/topic/greetings")//使用SendTo注解来标识这个方法返回的结果，都会被发送到它指定的destination，“/topic/greetings”.
     public Greeting greeting(HelloMessage message) throws Exception {
         //传入的参数HelloMessage为客户端发送过来的消息，是自动绑定的。
