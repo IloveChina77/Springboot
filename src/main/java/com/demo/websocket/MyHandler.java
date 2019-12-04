@@ -20,7 +20,7 @@ public class MyHandler  extends TextWebSocketHandler {
         System.err.println(payload);
         Map<String, String> map = JSONObject.parseObject(payload, HashMap.class);
         System.err.println("接收到的数据：" + map);
-        session.sendMessage(new TextMessage("服务器返回收到的数据" + payload));
+        session.sendMessage(new TextMessage("服务器返回收到的数据!!!" + payload));
         // 获取请求ip
     }
 }
