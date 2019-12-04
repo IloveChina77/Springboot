@@ -1,1 +1,1 @@
-这个 包下 的 是 直接使用webSocket 协议 没有使用stomp 协议
+这个 包下 的 是 直接使用webSocket 协议 没有使用stomp 协议 （暂时不再使用）
