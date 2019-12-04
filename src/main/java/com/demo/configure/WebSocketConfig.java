@@ -6,25 +6,30 @@ import org.springframework.web.socket.config.annotation.EnableWebSocketMessageBr
 import org.springframework.web.socket.config.annotation.StompEndpointRegistry;
 import org.springframework.web.socket.config.annotation.WebSocketMessageBrokerConfigurer;
 
-//@Configuration // indicate that it is a Spring configuration class
-//@EnableWebSocketMessageBroker // enable WebSocket message handling, backed by a message broker
-//public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
-//
-//    /**
-//     * 就是配置 the message broker
-//     * @param config
-//     */
-//    @Override
-//    public void configureMessageBroker(MessageBrokerRegistry config) {
-//
-//        config.enableSimpleBroker("/topic");
-//        //指定客户端请求，服务端的请求前缀
-//        config.setApplicationDestinationPrefixes("/app");
-//
-//    }
-//
-//    @Override
-//    public void registerStompEndpoints(StompEndpointRegistry registry) {
-//        registry.addEndpoint("/gs-guide-websocket").withSockJS();
-//    }
-//}
+@Configuration // 标识这是一个Springboot的配置类
+@EnableWebSocketMessageBroker // 使用此注解来标识 能使用WebSocket的broker，即使用broker来处理消息
+public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
+
+    /**
+     * 就是配置 broker（消息代理）
+     * @param config
+     */
+    @Override
+    public void configureMessageBroker(MessageBrokerRegistry config) {
+        // 启用SimpleBroker，使得订阅到此“topic”前缀的客户端可以收到greeting消息
+        config.enableSimpleBroker("/topic");
+        //指定客户端请求，服务端的请求前缀
+        // 将“app”前缀绑定到MessageMapping注解指定的方发上。如"app/hello"被指定用greeting()方法来处理.
+        config.setApplicationDestinationPrefixes("/app");
+
+    }
+
+    /**
+     * 用来注册EndPoint, "/gs-guide-websocket"即为客户端尝试建立连接的地址
+     * @param registry
+     */
+    @Override
+    public void registerStompEndpoints(StompEndpointRegistry registry) {
+        registry.addEndpoint("/gs-guide-websocket").withSockJS();
+    }
+}
