@@ -6,6 +6,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class ApplicationRun {
     public static void main(String[] args) {
+//        SpringApplication springApplication = new SpringApplication(ApplicationRun.class);
+//        springApplication.addListeners(new STOMPConnectEventListener());
+//        springApplication.run(args);
         SpringApplication.run(ApplicationRun.class, args);
+
     }
 }

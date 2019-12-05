@@ -2,6 +2,7 @@ package com.demo.configure;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.messaging.simp.config.MessageBrokerRegistry;
+import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
 import org.springframework.web.socket.config.annotation.EnableWebSocketMessageBroker;
 import org.springframework.web.socket.config.annotation.StompEndpointRegistry;
 import org.springframework.web.socket.config.annotation.WebSocketMessageBrokerConfigurer;
@@ -17,12 +18,21 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
     @Override
     public void configureMessageBroker(MessageBrokerRegistry config) {
 
+        // 开启线程
+        ThreadPoolTaskScheduler te = new ThreadPoolTaskScheduler();
+        te.setPoolSize(1);
+        te.setThreadNamePrefix("wss-heartbeat-thread-");
+        te.initialize();
+
+
         //指定客户端请求，服务端的请求前缀
         // 将“app”前缀绑定到MessageMapping注解指定的方发上。如"app/hello"被指定用greeting()方法来处理.
         config.setApplicationDestinationPrefixes("/app");
 
         // 启用SimpleBroker，使得订阅到此“topic”前缀的客户端可以收到greeting消息
-        config.enableSimpleBroker("/topic/greetings");
+        config.enableSimpleBroker("/topic/greetings")
+                // 设置心跳信息
+                .setHeartbeatValue(new long[]{0, 2000}).setTaskScheduler(te);
     }
 
     /**
