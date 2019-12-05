@@ -22,7 +22,7 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
         config.setApplicationDestinationPrefixes("/app");
 
         // 启用SimpleBroker，使得订阅到此“topic”前缀的客户端可以收到greeting消息
-        config.enableSimpleBroker("/topic");
+        config.enableSimpleBroker("/topic/greetings");
     }
 
     /**
@@ -32,6 +32,8 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
      */
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registry) {
-        registry.addEndpoint("/gs-guide-websocket").withSockJS();
+        registry.addEndpoint("/gs-guide-websocket")
+                .setAllowedOrigins("*") // 开启跨域
+                .withSockJS();
     }
 }

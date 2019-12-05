@@ -14,9 +14,10 @@ public class GreetingController {
     // 用来返回结果给指定地址的用户
     @SendTo("/topic/greetings")//使用SendTo注解来标识这个方法返回的结果，都会被发送到它指定的destination，“/topic/greetings”.
     public Greeting greeting(HelloMessage message) throws Exception {
+        System.err.println(message);
         //传入的参数HelloMessage为客户端发送过来的消息，是自动绑定的。
         //Thread.sleep(1000); // simulated delay
-        return new Greeting("Hello," + HtmlUtils.htmlEscape(message.getName() + "!"));
+        return new Greeting("Hello," + HtmlUtils.htmlEscape(message.getBody() + "!"));
     }
 
 

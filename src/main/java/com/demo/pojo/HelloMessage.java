@@ -1,22 +1,14 @@
 package com.demo.pojo;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
 public class HelloMessage {
-
-    private String name;
-
-    public HelloMessage() {
-
-    }
-    public HelloMessage(String  name) {
-        this.name = name;
-    }
-
-    public String getName() {
-        return name;
-    }
-    public void setName(String name) {
-        this.name = name;
-    }
-
-
+    private String body;
 }
