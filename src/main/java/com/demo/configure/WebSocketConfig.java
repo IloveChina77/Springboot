@@ -1,5 +1,6 @@
 package com.demo.configure;
 
+import com.demo.interceptor.IpHandShakeInterceptor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.messaging.simp.config.MessageBrokerRegistry;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
@@ -32,7 +33,7 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
         // 启用SimpleBroker，使得订阅到此“topic”前缀的客户端可以收到greeting消息
         config.enableSimpleBroker("/topic/greetings")
                 // 设置心跳信息
-                .setHeartbeatValue(new long[]{0, 2000}).setTaskScheduler(te);
+                .setHeartbeatValue(new long[]{2000, 2000}).setTaskScheduler(te);
     }
 
     /**
@@ -42,8 +43,12 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
      */
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registry) {
+        int i=1;
+        System.err.println("第"+i+"执行");
         registry.addEndpoint("/gs-guide-websocket")
+                .addInterceptors(new IpHandShakeInterceptor())
                 .setAllowedOrigins("*") // 开启跨域
                 .withSockJS();
+        i++;
     }
 }
