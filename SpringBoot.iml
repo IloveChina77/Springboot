@@ -30,6 +30,7 @@
     <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot-starter-logging:2.2.1.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: ch.qos.logback:logback-classic:1.2.3" level="project" />
     <orderEntry type="library" name="Maven: ch.qos.logback:logback-core:1.2.3" level="project" />
+    <orderEntry type="library" name="Maven: org.slf4j:slf4j-api:1.7.29" level="project" />
     <orderEntry type="library" name="Maven: org.apache.logging.log4j:log4j-to-slf4j:2.12.1" level="project" />
     <orderEntry type="library" name="Maven: org.apache.logging.log4j:log4j-api:2.12.1" level="project" />
     <orderEntry type="library" name="Maven: org.slf4j:jul-to-slf4j:1.7.29" level="project" />
@@ -40,6 +41,7 @@
     <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot-starter-json:2.2.1.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-databind:2.10.0" level="project" />
     <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-annotations:2.10.0" level="project" />
+    <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-core:2.10.0" level="project" />
     <orderEntry type="library" name="Maven: com.fasterxml.jackson.datatype:jackson-datatype-jdk8:2.10.0" level="project" />
     <orderEntry type="library" name="Maven: com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.10.0" level="project" />
     <orderEntry type="library" name="Maven: com.fasterxml.jackson.module:jackson-module-parameter-names:2.10.0" level="project" />
@@ -64,14 +66,5 @@
     <orderEntry type="library" name="Maven: com.alibaba:fastjson:1.2.57" level="project" />
     <orderEntry type="library" name="Maven: net.sf.trove4j:core:3.1.0" level="project" />
     <orderEntry type="library" name="Maven: org.projectlombok:lombok:1.18.10" level="project" />
-    <orderEntry type="library" name="Maven: org.webjars:webjars-locator-core:0.41" level="project" />
-    <orderEntry type="library" name="Maven: org.slf4j:slf4j-api:1.7.29" level="project" />
-    <orderEntry type="library" name="Maven: io.github.classgraph:classgraph:4.8.44" level="project" />
-    <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-core:2.10.0" level="project" />
-    <orderEntry type="library" name="Maven: org.webjars.npm:angular__http:2.4.10" level="project" />
-    <orderEntry type="library" name="Maven: org.webjars:sockjs-client:1.0.2" level="project" />
-    <orderEntry type="library" name="Maven: org.webjars:stomp-websocket:2.3.3" level="project" />
-    <orderEntry type="library" name="Maven: org.webjars:bootstrap:3.3.7" level="project" />
-    <orderEntry type="library" name="Maven: org.webjars:jquery:3.1.0" level="project" />
   </component>
 </module>

@@ -1,6 +1,5 @@
 package com.demo;
 
-import com.demo.listener.STOMPConnectEventListener;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
