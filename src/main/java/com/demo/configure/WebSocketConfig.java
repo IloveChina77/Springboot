@@ -25,7 +25,6 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
         te.setThreadNamePrefix("wss-heartbeat-thread-");
         te.initialize();
 
-
         //指定客户端请求，服务端的请求前缀
         // 将“app”前缀绑定到MessageMapping注解指定的方发上。如"app/hello"被指定用greeting()方法来处理.
         config.setApplicationDestinationPrefixes("/app");

@@ -1,5 +1,3 @@
-
-
 package com.demo.listener;
 
 import org.springframework.context.ApplicationListener;
