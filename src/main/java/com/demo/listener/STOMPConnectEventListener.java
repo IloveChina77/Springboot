@@ -11,7 +11,6 @@ import org.springframework.web.socket.messaging.SessionConnectEvent;
 @Component
 public class STOMPConnectEventListener implements ApplicationListener<SessionConnectEvent> {
 
-    @EventListener
     @Override
     public void onApplicationEvent(SessionConnectEvent event) {
         StompHeaderAccessor sha = StompHeaderAccessor.wrap(event.getMessage());
