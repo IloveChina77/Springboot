@@ -1,52 +1,121 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
-    <title>Hello WebSocket</title>
-    <link href="./main.css" rel="stylesheet">
+    <meta charset="UTF-8">
+    <title>webSocket</title>
     <script src="./jquery.js"></script>
     <script src="./sockjs.min.js"></script>
     <script src="./stomp.js"></script>
-    <script src="./app.js"></script>
 </head>
+
 <body>
-<noscript><h2 style="color: #ff0000">Seems your browser doesn't support Javascript! Websocket relies on Javascript being
-    enabled. Please enable
-    Javascript and reload this page!</h2></noscript>
-<div id="main-content" class="container">
-    <div class="row">
-        <div class="col-md-6">
-            <form class="form-inline">
-                <div class="form-group">
-                    <label for="connect">WebSocket connection:</label>
-                    <button id="connect" class="btn btn-default" type="submit">Connect</button>
-                    <button id="disconnect" class="btn btn-default" type="submit" disabled="disabled">Disconnect
-                    </button>
-                </div>
-            </form>
-        </div>
-        <div class="col-md-6">
-            <form class="form-inline">
-                <div class="form-group">
-                    <label for="name">What is your name?</label>
-                    <input type="text" id="name" class="form-control" placeholder="Your name here...">
-                </div>
-                <button id="send" class="btn btn-default" type="submit">Send</button>
-            </form>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-12">
-            <table id="conversation" class="table table-striped">
-                <thead>
-                <tr>
-                    <th>Greetings</th>
-                </tr>
-                </thead>
-                <tbody id="greetings">
-                </tbody>
-            </table>
-        </div>
-    </div>
+<div>
+    <button id="connect">连接</button>
+    <button id="disconnect" disabled="disabled">断开</button>
+</div>
+<div>
+    <h3>hello</h3>
+    <button id="broadcastButton">发送</button><input id="broadcastText" type="text">
+    <label>广播消息：</label><input id="broadcastMsg" type="text" disabled="disabled">
+</div>
+<div>
+    <h3>hello1</h3>
+    <button id="p2pButton">发送</button><input id="p2pText" type="text">
+    <label>1对1消息1：</label><input id="p2pMsg" type="text" disabled="disabled">
+</div>
+<div>
+    <h3>hello2</h3>
+    <button id="appButton">发送</button><input id="appText" type="text">
+    <label>1对1消息2：</label><input id="appMsg" type="text" disabled="disabled">
 </div>
 </body>
+<script>
+    var stomp = null;
+    let connectWs = function (count) {
+        let num = count || 1
+        var url =
+            "http://192.168.3.6:9901/gs-guide-websocket?token=eyJhbGciOiJIUzI1NiJ9.eyJleHAiOjEwMDAxNTc3MzQ0OTY4NTA2LCJ1c2VySWQiOiIxMDAxMCIsImlhdCI6MTU3NzM0NDk2ODUwNiwidXNlcm5hbWUiOiJ6ciJ9.tI0ZJLamOfxX2axR8ChRYaQRpxHcQuNtCvkWi0A54c8"
+
+        var socket = new SockJS(url);
+        var userId = "zr";
+        stomp = Stomp.over(socket);
+        //连接
+        stomp.heartbeat.outgoing = 1000; // 客户端每20000ms发送一次心跳检测
+        stomp.heartbeat.incoming = 5000; // client不接收serever端的心跳检测
+        // console.log(stomp)
+        // console.dir(socket)
+
+        // 订阅
+        stomp.connect({}, function (frame) {
+            console.log('>>>>success', frame)
+            // hello
+            stomp.subscribe("/topic/greetings", function (res) {
+                $("#broadcastMsg").val(res.body);
+            });
+            // hello1
+            stomp.subscribe("/user/userTest/msg", function (res) {
+                $("#p2pMsg").val(res.body);
+                console.log(res.body)
+            });
+            // hello2
+            stomp.subscribe("/user/userTest/msg", function (res) {
+                $("#subscribeMsg").val(res.body);
+                console.log(res)
+            });
+
+            setConnect(true);
+
+        }, erro => {
+            console.log("9527")
+            if (num < 10) {
+                setTimeout(() => {
+                    connectWs(num + 1);
+                }, 10000);
+            } else {
+                console.log("放弃重连了");
+            }
+        });
+
+    }
+    $("#connect").click(() => {
+        connectWs(1)
+    });
+
+    $("#disconnect").click(function () {
+        if (stomp != null) {
+            stomp.disconnect();
+        }
+        setConnect(false);
+    });
+    //设置按钮
+    function setConnect(connectStatus) {
+        $("#connect").attr("disabled", connectStatus);
+        $("#disconnect").attr("disabled", !connectStatus);
+    }
+
+    //发送广播消息
+    $("#broadcastButton").click(function () {
+
+        stomp.send("/app/hello", {}, JSON.stringify({
+            "body": $("#broadcastText").val()
+        }))
+    });
+
+    //发p2p消息
+    $("#p2pButton").click(function () {
+        let str = $("#p2pText").val()
+        stomp.send("/app/hello1", {}, JSON.stringify({
+            "body": str
+        }))
+    });
+
+    //发送web消息
+    $("#appButton").click(function () {
+        stomp.send("/app/hello2", {}, JSON.stringify({
+            "body": $("#appText").val()
+        }))
+    });
+</script>
+
 </html>
